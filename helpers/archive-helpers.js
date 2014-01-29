@@ -7,7 +7,7 @@ var path = require('path');
   code in one place! Feel free to customize it in any way you wish.
 */
 
-exports.paths = {
+exports.paths = paths = {
   'siteAssets' : path.join(__dirname, '../web/public'),
   'archivedSites' : path.join(__dirname, '../archives/sites'),
   'list' : path.join(__dirname, '../archives/sites.txt')
@@ -29,7 +29,16 @@ exports.initialize = function(pathsObj){
 exports.readListOfUrls = function(){
 };
 
-exports.isUrlInList = function(){
+exports.isUrlInList = function(url){
+  var found = false;
+  fs.readFile(paths.archivedSites + "/sites.txt", function(err, data) {
+    if (err) throw err;
+    data = JSON.stringify(data);
+    if (data.indexOf(url) > -1) {
+      found = true;
+    }
+    
+  });
 };
 
 exports.addUrlToList = function(){
