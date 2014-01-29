@@ -4,6 +4,7 @@ body {
   width: 90%;
   margin: auto;
   color: red;
+  background-color: red;
 }
 input {
   color: red;

@@ -17,7 +17,13 @@ var getRequest = function(pathname, response){
   serveAssets(response, pathname, 200);
 };
 var postRequest = function(pathname, response) {
-  console.log('post request');
+  //look in archive to see if it is in list.
+  archive.readListOfUrls(pathname, function(fileList, url){
+    var found = archive.isUrlInList(fileList, url);
+    if (found === true) {
+      console.log('found');
+    }
+  });
   sendResponse(response, 201, null);
 
 };
@@ -36,14 +42,21 @@ exports.serveAssets = serveAssets = function(response, asset, statusCode) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...), css, or anything that doesn't change often.)
   var fileName;
+  var contentType;
   if (asset === '/') {
     fileName = '/index.html'
-  } else {
+    contentType = 'text/html'; 
+  } else if (asset === '/styles.css') {
     fileName = '/' + asset;
+    contentType = 'text/css';
+  } 
+  else {
+    fileName = '/' + asset;
+    contentType = 'text/html'
   }
   fs.readFile(archive.paths.siteAssets+fileName, 'utf-8', function(err, data){
     if (err) throw err;
-    sendResponse(response, statusCode, data);
+    sendResponse(response, statusCode, data, contentType);
   });
 };
 
@@ -58,7 +71,8 @@ exports.route =  route = function(request, response) {
   }
 };
 
-exports.sendResponse = sendResponse = function(response, statusCode, data) {
+exports.sendResponse = sendResponse = function(response, statusCode, data, contentType) {
+  headers['Content-Type'] = contentType;
   response.writeHead(statusCode, headers);
   response.end(data);
 };
