@@ -27,8 +27,8 @@ exports.initialize = function(pathsObj){
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(pathname, callback){
-  console.log(pathname);
-  fs.readFile(paths.archivedSites + "/sites.txt", function(err, data) {
+  console.log('pathname: ', pathname);
+  fs.readFile(paths.list, function(err, data) {
     if (err) throw err;
     data = JSON.stringify(data);
     callback(pathname, data);

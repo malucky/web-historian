@@ -23,6 +23,9 @@ var postRequest = function(pathname, response) {
     if (found === true) {
       console.log('found');
     }
+    else {
+      console.log('not found');
+    }
   });
   sendResponse(response, 201, null);
 
