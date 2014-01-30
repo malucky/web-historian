@@ -47,7 +47,7 @@ exports.serveAssets = serveAssets = function(response, asset, statusCode) {
   var fileName;
   var contentType;
   if (asset === '/') {
-    fileName = '/index.html'
+    fileName = '/index.html';
     contentType = 'text/html'; 
   } else if (asset === '/styles.css') {
     fileName = '/' + asset;
@@ -55,7 +55,7 @@ exports.serveAssets = serveAssets = function(response, asset, statusCode) {
   } 
   else {
     fileName = '/' + asset;
-    contentType = 'text/html'
+    contentType = 'text/html';
   }
   fs.readFile(archive.paths.siteAssets+fileName, 'utf-8', function(err, data){
     if (err) throw err;
